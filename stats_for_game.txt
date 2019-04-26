@@ -1,0 +1,40 @@
+Attributes:
+==========
+		   K   M
+Agility (AG)	: 4-6 2-6
+Charisma (CHA)	: 2-6 3-6
+Luck (LK)	: 1-3 2-4
+Strength (STR)	: 4-6 2-3
+Wisdom (WIS)	: 2-4 4-7
+
+At level 1 total sum should be 19.
+Every 3 levels 2 points to add to attributes.
+Every 10 levels add 1 point to each attribute.
+
+Skills:
+=======
+
+HP (STR+LK)		    : (STR+LK)*LV+2
+MP (WIS+LK)		    : (WIS+LK)*LV
+Arcane (WIS)		    : (1/WIS)+(1/LV)
+Attack Damage (LK+(STR/AG)) : <Weapon Type>
+Defense (AG+WIS+LK)	    : (AG+WIS+LK)/3
+Diplomacy (CHA)		    : CHA
+Dodge (AG)  		    : AG+(LV/10)
+Haggle (CHA+LK)		    : CHA+LK
+Holy (WIS)		    : (1/WIS)+(1/LV)
+Intimidate (CHA)	    : (2/CHA)
+Jump (STR) 		    : STR
+Nature (WIS+LK)		    : (2/(WIS+LK))+(1/LV)
+Search (WIS+LK)		    : (1/WIS)+(1/LK)
+Speed (AG+STR)		    : AG+STR
+Stealth (AG+LK)		    : (1/AG)+(1/LK)
+Swim (STR)		    : STR
+
+At level 1 distribute 10 points between the skills.
+Each level you gain another point to add to a skill.
+
+Powers:
+=======
+
+To be continue...

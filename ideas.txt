@@ -1,0 +1,9 @@
+1) After commiting many deeds that help a certain god as a knight, the player will unlock the Champion path. This will allow him become a paladin of this god and gain some holy powers.
+
+2) A mage will ask the player for help, if the player will help him the mage will become a supporting NPC, In addition, provided the player has a hight enough Arcane Skill, the mage will offer to teach him Elemntal Magic. For a magic-user player, this will unlock some cool new elemental powers. For a knight (With high enough Arcane) this will unlock the Basic Wizardry path. A Sword Knight who progresses enough in this path will be able to progress even further as a Sword-Mage.
+
+3) A high level Spear Knight with enough Nature, will be able to unlock the Shaman Path.
+
+4) A knight who preforms many revenged based choices, doesn't trust others
+easily and generally acts angrily, will unlock the Rage path. Advancement in
+this path locks the Champion path, and vice versa.
