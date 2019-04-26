@@ -41,8 +41,6 @@
 
 
 (define game-repl (lambda (animation x y xvelocity) (begin
-		    (sdl2:pump-events!)
-		    (if (sdl2:has-events?)
 			(begin
 			  (<- event (sdl2:poll-event!))
 			  (case (sdl2:event-type event)
@@ -55,13 +53,51 @@
 					  ((right) (<- xvelocity 0))
 					  ((left) (<- xvelocity 0))
 					  )))
-			  
-			))
-		    (begin
-		      (sdl2:render-clear! *renderer*)
-		      (<- animation (render-frame! *renderer* x y animation))
-		      (sdl2:render-present! *renderer*)
-		      (game-repl animation (+ x xvelocity) y xvelocity)
-		      ))))
-		    
-(game-repl *animation* 200 200 0)
+			  			))
+
+
+
+(define (handle-events actors)
+  (if (sdl2:has-event?))
+)
+
+
+(define (render-actors view actors)
+  
+)
+
+
+(define (update-view view)
+  
+)
+
+
+(define (update-actors actors)
+  
+)
+
+
+(define (game-prul renderer view actors)
+
+  ;; (P) oll events
+  (sdl2:pump-events!)
+  (handle-events actors)
+
+  ;; (R) ender actors
+  (sdl2:render-clear! renderer)
+  (render-actors renderer view actors)
+  (sdl2:renderer-present! renderer)
+
+  ;; (U) pdate and (L) oop
+  (game-prul renderer (update-view view) (update-actors actors))
+)
+
+
+(define (main)
+  (<- initial-renderer-view-actors (init))
+  (apply game-prul initial-renderer-view-actors)
+  (cleanup)
+)
+
+
+(main)
