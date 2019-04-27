@@ -8,6 +8,7 @@
 
 (load "/home/vag/Documents/Games/FantasyGame/xtexture.scm")
 (load "/home/vag/Documents/Games/FantasyGame/actor.scm")
+(load "/home/vag/Documents/Games/FantasyGame/opening_gui.scm")
 
 
 (define-syntax <- (ir-macro-transformer (lambda (expr inject compare)
@@ -35,7 +36,8 @@
    (sdl2:render-draw-color-set! renderer
 				(sdl2:make-color 0 0 0 0))
    (<- view (make <actor>))
-   `(,window ,renderer ,view (,view))
+   (<- background (create-opening-gui renderer))
+   `(,window ,renderer ,view (,view ,background))
 )
 
 

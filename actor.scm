@@ -18,7 +18,7 @@
 
 
 (define-class <actor> ()
-  [(animations '())
+  [(animations (make-hash-table))
    (cur-anim #f)
    (x 0)
    (y 0)
@@ -33,11 +33,13 @@
 (define-generic (render-actor! (actor <actor>) renderer x y))
 (define-method (render-actor! (actor <actor>) renderer x y)
   (if (slot-value actor 'cur-anim)
-      (<- (slot-value actor 'cur-anim) (render-frame! renderer (slot-value actor 'cur-anim) x y))
+      (<- (slot-value actor 'cur-anim) (render-frame! renderer x y (slot-value actor 'cur-anim)))
+      (begin
+	(<- (slot-value actor 'x) (+ (slot-value actor 'x) (slot-value actor 'xvelocity)))
+	(<- (slot-value actor 'y) (+ (slot-value actor 'y) (slot-value actor 'yvelocity)))
+	((slot-value actor 'when-rendering))
+      )
   )
-  (<- (slot-value actor 'x) (+ (slot-value actor 'x) (slot-value actor 'xvelocity)))
-  (<- (slot-value actor 'y) (+ (slot-value actor 'y) (slot-value actor 'yvelocity)))
-  ((slot-value actor 'when-rendering))
 )
 
 
@@ -61,4 +63,12 @@
 
 (define-method (bind-keyup-symbol->function! (actor <actor>) sym function)
   (<- (hash-table-ref (slot@ actor keyup-symbol->function) sym) function)
+)
+
+(define-method (add-animation (actor <actor>) xtexture name)
+  (<- (hash-table-ref (slot-value actor 'animations) name) xtexture)
+)
+
+(define-method (change-animation (actor <actor>) name)
+  (<- (slot-value actor 'cur-anim) (hash-table-ref (slot-value actor 'animations) name))
 )
