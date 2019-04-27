@@ -1,10 +1,14 @@
 
 (import (prefix sdl2 "sdl2:"))
+(import coops)
+(import coops-utils)
 
 (sdl2:set-main-ready!)
 (sdl2:init!)
 
 (load "/home/vag/Documents/Games/FantasyGame/xtexture.scm")
+(load "/home/vag/Documents/Games/FantasyGame/actor.scm")
+
 
 (define-syntax <- (ir-macro-transformer (lambda (expr inject compare)
 						  (let ((var (cadr expr))
@@ -18,86 +22,95 @@
 						    `(set! ,var ,val)))
 						))
 
-(<- *window* (sdl2:create-window!
-		  "Fantasy Game"
-		  0
-		  0
-		  800
-		  600))
 
-(<- *renderer* (sdl2:create-renderer! *window*))
-(sdl2:render-draw-color-set! *renderer*
-			     (sdl2:make-color 0 0 0 0))
+(define (init!)
+   (<- window (sdl2:create-window!
+		 "Fantasy Game"
+		 0
+		 0
+		 800
+		 600))
 
-(<- *animation* (load-animation '(
-			       "/home/vag/Documents/Games/FantasyGame/data/Knight/Spear Knight/_WALK/_WALK_000.png"
-			       "/home/vag/Documents/Games/FantasyGame/data/Knight/Spear Knight/_WALK/_WALK_001.png"
-			       "/home/vag/Documents/Games/FantasyGame/data/Knight/Spear Knight/_WALK/_WALK_002.png"
-			       "/home/vag/Documents/Games/FantasyGame/data/Knight/Spear Knight/_WALK/_WALK_003.png"
-			       "/home/vag/Documents/Games/FantasyGame/data/Knight/Spear Knight/_WALK/_WALK_004.png"
-			       "/home/vag/Documents/Games/FantasyGame/data/Knight/Spear Knight/_WALK/_WALK_005.png"
-			       "/home/vag/Documents/Games/FantasyGame/data/Knight/Spear Knight/_WALK/_WALK_006.png"
-			       ) *renderer* 100 300 200))
-
-
-(define game-repl (lambda (animation x y xvelocity) (begin
-			(begin
-			  (<- event (sdl2:poll-event!))
-			  (case (sdl2:event-type event)
-			    ((quit) (begin (sdl2:destroy-window! *window*) (bug)))
-			    ((key-down) (case (sdl2:keyboard-event-sym event)
-					  ((right) (<- xvelocity 0.1))
-					  ((left) (<- xvelocity -0.1))
-					  ))
-			    ((key-up) (case (sdl2:keyboard-event-sym event)
-					  ((right) (<- xvelocity 0))
-					  ((left) (<- xvelocity 0))
-					  )))
-			  			))
-
-
-
-(define (handle-events actors)
-  (if (sdl2:has-event?))
+   (<- renderer (sdl2:create-renderer! window))
+   (sdl2:render-draw-color-set! renderer
+				(sdl2:make-color 0 0 0 0))
+   (<- view (make <actor>))
+   `(,window ,renderer ,view (,view))
 )
 
 
-(define (render-actors view actors)
-  
+(define (handle-events! actors)
+  (if (sdl2:has-events?)
+      (begin
+	(<- quit #f)
+	(<- event (sdl2:poll-event!))
+	(case (sdl2:event-type event)
+	  [(quit) (<- quit #t)]
+	  [(key-down) (map (lambda (actor)
+			     (activate-keydown-symbol actor (sdl2:keyboard-event-sym event))
+		           )
+		           actors
+		      )
+	  ]
+	  [(key-up) (map (lambda (actor)
+			     (activate-keyup-symbol actor (sdl2:keyboard-event-sym event))
+
+		             )
+		         actors
+		    )
+	  ]
+	  
+	 )
+	(if quit #t (handle-events! actors))
+      )
+      #f
+  )
 )
 
 
-(define (update-view view)
-  
+(define (render-actors! renderer view actors)
+  (if (null? actors) '()
+    (let [{actor (car actors)}]
+      (if (render-actor! actor renderer (- (slot@ actor x) (slot@ view x)) (- (slot@ actor y) (slot@ view y)))
+	  (cons actor (render-actors! renderer view (cdr actors)))
+	  (render-actors! renderer view (cdr actors))
+      )
+    )
+  )
 )
 
 
-(define (update-actors actors)
-  
-)
-
-
-(define (game-prul renderer view actors)
+(define (game-prul! renderer view actors)
 
   ;; (P) oll events
   (sdl2:pump-events!)
-  (handle-events actors)
+  (<- x (handle-events! actors))
+  (if x '()
+      (begin
+	;; (R) ender actors
+	(sdl2:render-clear! renderer)
+	(<- actors (render-actors! renderer view actors))
+	(if (equal? actors '()) '()
+	    (begin  
+	      (sdl2:render-present! renderer)
 
-  ;; (R) ender actors
-  (sdl2:render-clear! renderer)
-  (render-actors renderer view actors)
-  (sdl2:renderer-present! renderer)
-
-  ;; (U) pdate and (L) oop
-  (game-prul renderer (update-view view) (update-actors actors))
+	      ;; (U) pdate and (L) oop
+	      (game-prul! renderer view actors)
+	    )
+  )))
 )
 
 
-(define (main)
-  (<- initial-renderer-view-actors (init))
-  (apply game-prul initial-renderer-view-actors)
-  (cleanup)
+(define (cleanup! window renderer)
+  (sdl2:destroy-window! window)
+  (sdl2:destroy-renderer! renderer)
+)
+
+(define (main!)
+  (<- initial-window-renderer-view-actors (init!))
+  (apply game-prul! (cdr initial-window-renderer-view-actors))
+  (cleanup! (car initial-window-renderer-view-actors) (cadr initial-window-renderer-view-actors))
 )
 
 
-(main)
+(main!)

@@ -1,7 +1,7 @@
 
-(require-extension "coops")
-(require-extension "coops-utils")
 (import srfi-69)
+(import coops)
+(import coops-utils)
 (load "/home/vag/Documents/Games/FantasyGame/xtexture.scm")
 
 (define-syntax <- (ir-macro-transformer (lambda (expr inject compare)
@@ -19,21 +19,46 @@
 
 (define-class <actor> ()
   [(animations '())
-   (cur-anim '())
+   (cur-anim #f)
    (x 0)
    (y 0)
    (xvelocity 0)
    (yvelocity 0)
-   (when-rendering (lambda () '()))
+   (when-rendering (lambda () #t))
    (keydown-symbol->function (make-hash-table))
    (keyup-symbol->function (make-hash-table))]
 )
 
-(define-method (render-actor! renderer (actor <actor>))
-  (begin
-    (render-frame! renderer (slot@ actor cur-anim) (slot@ actor x) (slot@ actor y))
-    (<- (slot@ actor x) (+ x xvelocity))
-    (<- (slot@ actor y) (+ y yvelocity))
-    ((slot@ actor when-rendering))
+
+(define-generic (render-actor! (actor <actor>) renderer x y))
+(define-method (render-actor! (actor <actor>) renderer x y)
+  (if (slot-value actor 'cur-anim)
+      (<- (slot-value actor 'cur-anim) (render-frame! renderer (slot-value actor 'cur-anim) x y))
   )
+  (<- (slot-value actor 'x) (+ (slot-value actor 'x) (slot-value actor 'xvelocity)))
+  (<- (slot-value actor 'y) (+ (slot-value actor 'y) (slot-value actor 'yvelocity)))
+  ((slot-value actor 'when-rendering))
+)
+
+
+(define-method (activate-keydown-symbol (actor <actor>) sym)
+  (let [(table (slot@ actor keydown-symbol->function))]
+    (if (hash-table-exists? table sym) ((hash-table-ref sym)))
+  )
+)
+
+
+(define-method (activate-keyup-symbol (actor <actor>) sym)
+  (let [(table (slot@ actor keyup-symbol->function))]
+    (if (hash-table-exists? table sym) ((hash-table-ref sym)))
+  )
+)
+
+(define-method (bind-keydown-symbol->function! (actor <actor>) sym function)
+  (<- (hash-table-ref (slot@ actor keydown-symbol->function) sym) function)
+)
+
+
+(define-method (bind-keyup-symbol->function! (actor <actor>) sym function)
+  (<- (hash-table-ref (slot@ actor keyup-symbol->function) sym) function)
 )
