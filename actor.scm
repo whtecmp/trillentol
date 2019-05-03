@@ -33,7 +33,7 @@
 (define-generic (render-actor! (actor <actor>) renderer x y))
 (define-method (render-actor! (actor <actor>) renderer x y)
   (if (slot-value actor 'cur-anim)
-      (<- (slot-value actor 'cur-anim) (render-frame! renderer x y (slot-value actor 'cur-anim)))
+      (render-frame! (slot-value actor 'cur-anim) renderer x y)
       (begin
 	(<- (slot-value actor 'x) (+ (slot-value actor 'x) (slot-value actor 'xvelocity)))
 	(<- (slot-value actor 'y) (+ (slot-value actor 'y) (slot-value actor 'yvelocity)))

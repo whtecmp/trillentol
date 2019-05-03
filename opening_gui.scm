@@ -1,5 +1,5 @@
 
-(load "/home/vag/Documents/Games/FantasyGame/actor.scm")
+(load "/home/vag/Documents/Games/FantasyGame/animation.scm")
 (load "/home/vag/Documents/Games/FantasyGame/actor.scm")
 
 
