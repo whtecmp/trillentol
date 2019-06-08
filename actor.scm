@@ -26,11 +26,12 @@
    (yvelocity 0)
    (when-rendering (lambda () #t))
    (keydown-symbol->function (make-hash-table))
-   (keyup-symbol->function (make-hash-table))]
+   (keyup-symbol->function (make-hash-table))
+   (local-varibles (make-hash-table))]
 )
 
 
-(define-generic (render-actor! (actor <actor>) renderer x y))
+(define-generic (render-actor! actor renderer x y))
 (define-method (render-actor! (actor <actor>) renderer x y)
   (if (slot-value actor 'cur-anim)
       (render-frame! (slot-value actor 'cur-anim) renderer x y)

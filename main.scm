@@ -1,5 +1,7 @@
 
 (import (prefix sdl2 "sdl2:"))
+(import (prefix sdl2-image "img:"))
+(import (prefix sdl2-ttf "ttf:"))
 (import coops)
 (import coops-utils)
 
@@ -8,7 +10,7 @@
 
 (load "/home/vag/Documents/Games/FantasyGame/xtexture.scm")
 (load "/home/vag/Documents/Games/FantasyGame/actor.scm")
-(load "/home/vag/Documents/Games/FantasyGame/opening_gui.scm")
+(load "/home/vag/Documents/Games/FantasyGame/opening-gui.scm")
 
 
 (define-syntax <- (ir-macro-transformer (lambda (expr inject compare)
@@ -25,6 +27,10 @@
 
 
 (define (init!)
+  (sdl2:init!)
+  (img:init!)
+  (ttf:init!)
+  
    (<- window (sdl2:create-window!
 		 "Fantasy Game"
 		 0
@@ -36,8 +42,9 @@
    (sdl2:render-draw-color-set! renderer
 				(sdl2:make-color 0 0 0 0))
    (<- view (make <actor>))
-   (<- background (create-opening-gui renderer))
-   `(,window ,renderer ,view (,view ,background))
+   (<- opening-gui (create-opening-gui! renderer))
+   (<- actors (cons view opening-gui))
+   `(,window ,renderer ,view ,actors)
 )
 
 
