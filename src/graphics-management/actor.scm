@@ -2,7 +2,7 @@
 (import srfi-69)
 (import coops)
 (import coops-utils)
-(load "/home/vag/Documents/Games/FantasyGame/xtexture.scm")
+(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/xtexture.scm")
 
 (define-syntax <- (ir-macro-transformer (lambda (expr inject compare)
 						  (let ((var (cadr expr))

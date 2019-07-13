@@ -37,10 +37,12 @@
 		 0
 		 800
 		 600))
+
    (<- renderer (sdl2:create-renderer! window))
    (sdl2:render-draw-color-set! renderer
 				(sdl2:make-color 0 0 0 0))
    (<- view (make <actor>))
+   
    (<- opening-gui (create-opening-gui! renderer))
    (<- actors (cons view opening-gui))
    `(,window ,renderer ,view ,actors)

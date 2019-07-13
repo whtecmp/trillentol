@@ -5,8 +5,8 @@
 
 (import coops)
 
-(load "/home/vag/Documents/Games/FantasyGame/xtexture.scm")
-(load "/home/vag/Documents/Games/FantasyGame/utils.scm")
+(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/xtexture.scm")
+(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/utils.scm")
 
 (define-class <animation> (<xtexture>)
   [frames]
