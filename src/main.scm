@@ -8,9 +8,9 @@
 (sdl2:set-main-ready!)
 (sdl2:init!)
 
-(load "/home/vag/Documents/Games/FantasyGame/xtexture.scm")
-(load "/home/vag/Documents/Games/FantasyGame/actor.scm")
-(load "/home/vag/Documents/Games/FantasyGame/opening-gui.scm")
+(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/xtexture.scm")
+(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/actor.scm")
+(load "/home/vag/Documents/Games/FantasyGame/src/opening-gui.scm")
 
 
 (define-syntax <- (ir-macro-transformer (lambda (expr inject compare)
@@ -113,6 +113,7 @@
   (sdl2:destroy-window! window)
   (sdl2:destroy-renderer! renderer)
 )
+
 
 (define (main!)
   (<- initial-window-renderer-view-actors (init!))
