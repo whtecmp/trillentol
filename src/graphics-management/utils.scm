@@ -1,4 +1,16 @@
 
+(define-syntax <- (ir-macro-transformer (lambda (expr inject compare)
+						  (let ((var (cadr expr))
+							(val (caddr expr)))
+						    `(set! ,var ,val)))
+					))
+
+(define-syntax -> (ir-macro-transformer (lambda (expr inject compare)
+						  (let ((val (cadr expr))
+							(var (caddr expr)))
+						    `(set! ,var ,val)))
+						))
+
 ;; Name: make-circular!
 ;; Input: lst: A list we want to make circular.
 ;; Output: The same list but circular.

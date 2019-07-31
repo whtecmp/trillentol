@@ -11,19 +11,7 @@
 (load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/xtexture.scm")
 (load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/actor.scm")
 (load "/home/vag/Documents/Games/FantasyGame/src/opening-gui.scm")
-
-
-(define-syntax <- (ir-macro-transformer (lambda (expr inject compare)
-						  (let ((var (cadr expr))
-							(val (caddr expr)))
-						    `(set! ,var ,val)))
-					))
-
-(define-syntax -> (ir-macro-transformer (lambda (expr inject compare)
-						  (let ((val (cadr expr))
-							(var (caddr expr)))
-						    `(set! ,var ,val)))
-						))
+(load "/home/vag/Documents/Games/FantasyGame/src/utils.scm")
 
 
 (define (init!)
