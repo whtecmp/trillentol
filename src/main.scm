@@ -11,7 +11,7 @@
 (load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/xtexture.scm")
 (load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/actor.scm")
 (load "/home/vag/Documents/Games/FantasyGame/src/opening-gui.scm")
-(load "/home/vag/Documents/Games/FantasyGame/src/utils.scm")
+(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/utils.scm")
 
 
 (define (init!)
