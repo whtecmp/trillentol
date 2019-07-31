@@ -11,3 +11,19 @@
         (else
          (set-cdr! (last-pair lst) lst) ; set the last pair to point to the head of the list
          lst)))
+
+
+;; Name: go-back
+;; Input: lst: A circular list
+;; Output: The same list, but when the car of the list is one element back
+(define (go-back lst)
+  (let [(first (car lst))]
+    (define (find-before-element lst)
+      (if (eq? (cadr lst) first)
+	  lst
+	  (find-before-element (cdr lst))
+	  )
+      )
+    (find-before-element lst)
+    )
+  )

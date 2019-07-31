@@ -30,8 +30,8 @@
   (sdl2:init!)
   (img:init!)
   (ttf:init!)
-  
-   (<- window (sdl2:create-window!
+
+   (<- window (sdl2:create-window! 
 		 "Fantasy Game"
 		 0
 		 0
@@ -66,7 +66,7 @@
 		         actors
 		    )
 	  ]
-	  
+
 	 )
 	(if quit #t (handle-events! actors))
       )
@@ -98,7 +98,7 @@
 	(sdl2:render-clear! renderer)
 	(<- actors (render-actors! renderer view actors))
 	(if (equal? actors '()) '()
-	    (begin  
+	    (begin
 	      (sdl2:render-present! renderer)
 
 	      ;; (U) pdate and (L) oop

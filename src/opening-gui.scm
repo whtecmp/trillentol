@@ -29,7 +29,7 @@
 
   (<- menu-chooser (make <actor>))
   (<- (hash-table-ref (slot-value menu-chooser 'local-varibles) 'options) (make-circular! '(new-game load-game)))
-  (bind-keydown-symbol->function! menu-chooser 's (lambda (menue-chooser) 
+  (bind-keydown-symbol->function! menu-chooser 'down (lambda (menue-chooser) 
 									   (begin
 									     (change-animation
 									      (eval (car
@@ -63,6 +63,41 @@
 									   )
 									   )
 				  ) ; We want the red option to be moveable down cyclicly
+
+  (bind-keydown-symbol->function! menu-chooser 'up (lambda (menue-chooser) 
+									   (begin
+									     (change-animation
+									      (eval (car
+										     (hash-table-ref
+										      (slot-value menue-chooser 'local-varibles)
+										      'options
+										      )
+									      ))
+									      'not-selected
+									     ) ; Change the current option to not selected,
+									     
+									     (<-
+									      (hash-table-ref (slot-value menu-chooser 'local-varibles) 'options)
+									      (go-back (hash-table-ref
+										    (slot-value menu-chooser 'local-varibles)
+										    'options
+										   )
+									      )
+									     ) ; Move the list foward.
+
+									     (change-animation
+									      (eval (car
+										     (hash-table-ref
+										      (slot-value menue-chooser 'local-varibles)
+										      'options
+										      )
+									      ))
+									      'selected
+									      ) ; Change the new option to selected.
+
+									   )
+									   )
+				  ) ; We want the red option to be moveable up cyclicly
   
   (<- new-game (make <actor>))
   (<- new-game-selected-texture (load-inscription "New Game" "/home/vag/Documents/Games/FantasyGame/artworks/Fonts/missaali.otf" '(255 0 0 255) 48))
