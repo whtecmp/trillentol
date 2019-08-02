@@ -11,9 +11,10 @@
 
   (define (action-when-chosen)
     (destroy-actor! menu-chooser)
-    (create-actor! (create-knight-choice-option!))
-    (create-actor! (create-mage-choice-option!))
-    (create-actor! (create-menu-chooser! 'right 'left 'a `(,knight-choice-option ,mage-choice-option)))
+    (create-menu! class-menu 'right 'left 'a `("Knight" x y on-choice) `("Mage" x y on-choice))
+    ; (create-actor! (create-knight-choice-option!))
+    ; (create-actor! (create-mage-choice-option!))
+    ; (create-actor! (create-menu-chooser! 'right 'left 'a `(,knight-choice-option ,mage-choice-option)))
   )
   
   (<- (hash-table-ref (slot-value new-game 'local-varibles) 'action-when-chosen) action-when-chosen)

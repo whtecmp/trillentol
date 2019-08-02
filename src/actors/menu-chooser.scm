@@ -2,8 +2,8 @@
 
 
 
-(define (create-menu-chooser! forward-key backward-key choose-key options)
-  (set! menu-chooser (make <actor>))
+(define (create-menu-chooser! menu-chooser-name forward-key backward-key choose-key options)
+  (<- (eval menu-chooser-name) (make <actor>))
   (<- (hash-table-ref (slot-value menu-chooser 'local-varibles) 'options) (make-circular! options))
   (define (get-current-option) (car
 				      (hash-table-ref
