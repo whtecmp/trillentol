@@ -11,6 +11,14 @@
 						    `(set! ,var ,val)))
 						))
 
+(define (nth n l)
+  (if (or (> n (length l)) (< n 0))
+    (error "Index out of bounds.")
+    (if (eq? n 0)
+      (car l)
+      (nth (- n 1) (cdr l)))))
+
+
 ;; Name: make-circular!
 ;; Input: lst: A list we want to make circular.
 ;; Output: The same list but circular.
