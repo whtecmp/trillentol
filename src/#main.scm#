@@ -8,41 +8,28 @@
 (sdl2:set-main-ready!)
 (sdl2:init!)
 
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/xtexture.scm")
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/actor.scm")
-(load "/home/vag/Documents/Games/FantasyGame/src/opening-gui.scm")
+; (load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/xtexture.scm")
+; (load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/actor.scm")
+; (load "/home/vag/Documents/Games/FantasyGame/src/opening-gui.scm")
+; (load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/utils.scm")
 
-
-(define-syntax <- (ir-macro-transformer (lambda (expr inject compare)
-						  (let ((var (cadr expr))
-							(val (caddr expr)))
-						    `(set! ,var ,val)))
-					))
-
-(define-syntax -> (ir-macro-transformer (lambda (expr inject compare)
-						  (let ((val (cadr expr))
-							(var (caddr expr)))
-						    `(set! ,var ,val)))
-						))
 
 
 (define (init!)
   (sdl2:init!)
   (img:init!)
   (ttf:init!)
-  
-   (<- window (sdl2:create-window!
+
+   (<- window (sdl2:create-window! 
 		 "Fantasy Game"
 		 0
 		 0
 		 800
 		 600))
-
    (<- renderer (sdl2:create-renderer! window))
    (sdl2:render-draw-color-set! renderer
 				(sdl2:make-color 0 0 0 0))
    (<- view (make <actor>))
-   
    (<- opening-gui (create-opening-gui! renderer))
    (<- actors (cons view opening-gui))
    `(,window ,renderer ,view ,actors)
@@ -52,10 +39,10 @@
 (define (handle-events! actors)
   (if (sdl2:has-events?)
       (begin
-	(<- quit #f)
+	(<- *quit* #f)
 	(<- event (sdl2:poll-event!))
 	(case (sdl2:event-type event)
-	  [(quit) (<- quit #t)]
+	  [(quit) (<- *quit* #t)]
 	  [(key-down) (map (lambda (actor)
 			     (activate-keydown-symbol actor (sdl2:keyboard-event-sym event))
 		           )
@@ -68,9 +55,9 @@
 		         actors
 		    )
 	  ]
-	  
+
 	 )
-	(if quit #t (handle-events! actors))
+	(if *quit* #t (handle-events! actors))
       )
       #f
   )
@@ -100,7 +87,7 @@
 	(sdl2:render-clear! renderer)
 	(<- actors (render-actors! renderer view actors))
 	(if (equal? actors '()) '()
-	    (begin  
+	    (begin
 	      (sdl2:render-present! renderer)
 
 	      ;; (U) pdate and (L) oop

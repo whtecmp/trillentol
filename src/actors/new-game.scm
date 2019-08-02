@@ -5,6 +5,10 @@
 (load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/utils.scm")
 (load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/xtexture.scm")
 
+(load "/home/vag/Documents/Games/FantasyGame/src/actors/knight-choice-option.scm")
+(load "/home/vag/Documents/Games/FantasyGame/src/actors/mage-choice-option.scm")
+(load "/home/vag/Documents/Games/FantasyGame/src/actors/menu-chooser.scm")
+
 
 (define (create-new-game!)
   (<- new-game (make <actor>))
@@ -13,7 +17,14 @@
   (add-animation new-game new-game-selected-texture 'selected)
   (add-animation new-game new-game-not-selected-texture 'not-selected)
   (change-animation new-game 'selected)
-  (define (action-when-chosen) (print actors))
+
+  (define (action-when-chosen)
+    (destroy-actor! menu-chooser)
+    (create-actor! (create-knight-choice-option!))
+    (create-actor! (create-mage-choice-option!))
+    (create-actor! (create-menu-chooser! 'right 'left 'a `(,knight-choice-option ,mage-choice-option)))
+  )
+  
   (<- (hash-table-ref (slot-value new-game 'local-varibles) 'action-when-chosen) action-when-chosen)
   (<- (slot-value new-game 'x) 150)
   (<- (slot-value new-game 'y) 120)

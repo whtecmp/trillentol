@@ -8,7 +8,7 @@
 
 
 (define (create-menu-chooser! forward-key backward-key choose-key options)
-  (<- menu-chooser (make <actor>))
+  (set! menu-chooser (make <actor>))
   (<- (hash-table-ref (slot-value menu-chooser 'local-varibles) 'options) (make-circular! options))
   (define (get-current-option) (car
 				      (hash-table-ref
@@ -71,5 +71,14 @@
 							      ((hash-table-ref (slot-value (get-current-option) 'local-varibles) 'action-when-chosen))
 							      )
 							    ))
+  
+
+  (define (when-destroying!)
+    (destroy-actor! new-game)
+    (destroy-actor! load-game)
+    (destroy-actor! exit-game)
+  )
+  (<- (slot-value menu-chooser 'when-destroying) when-destroying!)
+  
   menu-chooser
 )
