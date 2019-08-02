@@ -25,6 +25,8 @@
    (xvelocity 0)
    (yvelocity 0)
    (when-rendering (lambda () #t))
+   (when-destroying (lambda () #t))
+   (when-creating (lambda () #t))
    (keydown-symbol->function (make-hash-table))
    (keyup-symbol->function (make-hash-table))
    (local-varibles (make-hash-table))]
@@ -74,4 +76,14 @@
 
 (define-method (change-animation (actor <actor>) name)
   (<- (slot-value actor 'cur-anim) (hash-table-ref (slot-value actor 'animations) name))
+)
+
+(define-method (destroy-actor! (actor <actor>))
+  (<- (slot-value actor 'when-rendering) (lambda () #f))
+  ((slot-value actor 'when-destroying))
+)
+
+(define-method (create-actor! (actor <actor>))
+  (<- actors (append actors (cons actor '())))
+  ((slot-value actor 'when-creating))
 )

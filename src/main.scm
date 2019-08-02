@@ -38,10 +38,10 @@
 (define (handle-events! actors)
   (if (sdl2:has-events?)
       (begin
-	(<- quit #f)
+	(<- *quit* #f)
 	(<- event (sdl2:poll-event!))
 	(case (sdl2:event-type event)
-	  [(quit) (<- quit #t)]
+	  [(quit) (<- *quit* #t)]
 	  [(key-down) (map (lambda (actor)
 			     (activate-keydown-symbol actor (sdl2:keyboard-event-sym event))
 		           )
@@ -56,7 +56,7 @@
 	  ]
 
 	 )
-	(if quit #t (handle-events! actors))
+	(if *quit* #t (handle-events! actors))
       )
       #f
   )
