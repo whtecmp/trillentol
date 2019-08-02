@@ -14,7 +14,7 @@
   (add-animation exit-game exit-game-selected-texture 'selected)
   (add-animation exit-game exit-game-not-selected-texture 'not-selected)
   (change-animation exit-game 'not-selected)
-  (define (action-when-chosen) (<- quit #t))
+  (define (action-when-chosen) (<- *quit* #t))
   (<- (hash-table-ref (slot-value exit-game 'local-varibles) 'action-when-chosen) action-when-chosen)
   (<- (slot-value exit-game 'x) 150)
   (<- (slot-value exit-game 'y) 220)

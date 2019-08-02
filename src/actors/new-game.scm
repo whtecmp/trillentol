@@ -13,6 +13,8 @@
   (add-animation new-game new-game-selected-texture 'selected)
   (add-animation new-game new-game-not-selected-texture 'not-selected)
   (change-animation new-game 'selected)
+  (define (action-when-chosen) (print actors))
+  (<- (hash-table-ref (slot-value new-game 'local-varibles) 'action-when-chosen) action-when-chosen)
   (<- (slot-value new-game 'x) 150)
   (<- (slot-value new-game 'y) 120)
   new-game
