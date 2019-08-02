@@ -1,10 +1,5 @@
 
 
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/actor.scm")
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/animation.scm")
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/inscription.scm")
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/utils.scm")
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/xtexture.scm")
 
 
 (define (create-mage-choice-option!)
@@ -14,7 +9,7 @@
   (add-animation mage-choice-option mage-choice-option-selected-texture 'selected)
   (add-animation mage-choice-option mage-choice-option-not-selected-texture 'not-selected)
   (change-animation mage-choice-option 'not-selected)
-  (<- (slot-value mage-choice-option 'x) 50)
+  (<- (slot-value mage-choice-option 'x) 550)
   (<- (slot-value mage-choice-option 'y) 120)
   mage-choice-option
 )

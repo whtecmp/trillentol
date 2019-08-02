@@ -1,9 +1,4 @@
 
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/actor.scm")
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/animation.scm")
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/inscription.scm")
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/utils.scm")
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/xtexture.scm")
 
 
 (define (create-heading!)

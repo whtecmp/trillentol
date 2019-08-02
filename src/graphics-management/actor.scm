@@ -2,19 +2,7 @@
 (import srfi-69)
 (import coops)
 (import coops-utils)
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/xtexture.scm")
 
-(define-syntax <- (ir-macro-transformer (lambda (expr inject compare)
-						  (let ((var (cadr expr))
-							(val (caddr expr)))
-						    `(set! ,var ,val)))
-					))
-
-(define-syntax -> (ir-macro-transformer (lambda (expr inject compare)
-						  (let ((val (cadr expr))
-							(var (caddr expr)))
-						    `(set! ,var ,val)))
-						))
 
 
 (define-class <actor> ()
@@ -84,6 +72,6 @@
 )
 
 (define-method (create-actor! (actor <actor>))
-  (<- actors (append actors (cons actor '())))
+  (<- *new-actors* (append *new-actors* (cons actor '())))
   ((slot-value actor 'when-creating))
 )

@@ -1,5 +1,4 @@
 
-(load "/home/vag/Documents/Games/FantasyGame/src/actors/actor-factories.scm")
 
 
 (define (create-opening-gui! renderer)

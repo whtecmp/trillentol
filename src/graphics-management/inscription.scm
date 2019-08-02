@@ -3,7 +3,6 @@
 (import (prefix sdl2-ttf "ttf:"))
 (import (prefix sdl2 "sdl2:"))
 
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/xtexture.scm")
 
 (define-class <inscription> (<xtexture>)
   [text

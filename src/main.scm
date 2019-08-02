@@ -8,10 +8,6 @@
 (sdl2:set-main-ready!)
 (sdl2:init!)
 
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/xtexture.scm")
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/actor.scm")
-(load "/home/vag/Documents/Games/FantasyGame/src/opening-gui.scm")
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/utils.scm")
 
 
 (define (init!)
@@ -85,10 +81,11 @@
 	;; (R) ender actors
 	(sdl2:render-clear! renderer)
 	(<- actors (render-actors! renderer view actors))
+	(<- actors (append actors *new-actors*))
+	(<- *new-actors* '())
 	(if (equal? actors '()) '()
 	    (begin
 	      (sdl2:render-present! renderer)
-
 	      ;; (U) pdate and (L) oop
 	      (game-prul! renderer view actors)
 	    )
@@ -109,4 +106,5 @@
 )
 
 
+(<- *new-actors* '())
 (main!)
