@@ -4,8 +4,12 @@
 (load "/home/vag/Documents/Games/FantasyGame/src/actors/menu-chooser.scm")
 (load "/home/vag/Documents/Games/FantasyGame/src/actors/new-game.scm")
 (load "/home/vag/Documents/Games/FantasyGame/src/actors/load-game.scm")
+(load "/home/vag/Documents/Games/FantasyGame/src/actors/exit-game.scm")
 
 
 (define (get-actor-factories)
-  `(,create-background! ,create-heading! ,create-menu-chooser! ,create-new-game! ,create-load-game!)
+  (<- new-game create-new-game!)
+  (<- load-game create-load-game!)
+  (<- exit-game create-exit-game!)
+  `(,create-background! ,create-heading! ,new-game ,load-game ,exit-game ,(lambda () (create-menu-chooser! 'down 'up 'a `(,new-game ,load-game ,exit-game))))
   )

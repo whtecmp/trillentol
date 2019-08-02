@@ -7,18 +7,20 @@
 (load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/xtexture.scm")
 
 
-(define (create-menu-chooser!)
+(define (create-menu-chooser! forward-key backward-key choose-key options)
   (<- menu-chooser (make <actor>))
-  (<- (hash-table-ref (slot-value menu-chooser 'local-varibles) 'options) (make-circular! '(new-game load-game)))
-  (bind-keydown-symbol->function! menu-chooser 'down (lambda (menue-chooser) 
+  (<- (hash-table-ref (slot-value menu-chooser 'local-varibles) 'options) (make-circular! options))
+  (define (get-current-option) (car
+				      (hash-table-ref
+				       (slot-value menu-chooser 'local-varibles)
+				       'options
+				       )
+				      )
+    )
+  (bind-keydown-symbol->function! menu-chooser forward-key (lambda (menu-chooser) 
 									   (begin
 									     (change-animation
-									      (eval (car
-										     (hash-table-ref
-										      (slot-value menue-chooser 'local-varibles)
-										      'options
-										      )
-									      ))
+									      (get-current-option)
 									      'not-selected
 									     ) ; Change the current option to not selected,
 									     
@@ -32,12 +34,7 @@
 									     ) ; Move the list foward.
 
 									     (change-animation
-									      (eval (car
-										     (hash-table-ref
-										      (slot-value menue-chooser 'local-varibles)
-										      'options
-										      )
-									      ))
+									      (get-current-option)
 									      'selected
 									      ) ; Change the new option to selected.
 
@@ -45,15 +42,10 @@
 									   )
 				  ) ; We want the red option to be moveable down cyclicly
 
-  (bind-keydown-symbol->function! menu-chooser 'up (lambda (menue-chooser) 
+  (bind-keydown-symbol->function! menu-chooser backward-key (lambda (menu-chooser) 
 									   (begin
 									     (change-animation
-									      (eval (car
-										     (hash-table-ref
-										      (slot-value menue-chooser 'local-varibles)
-										      'options
-										      )
-									      ))
+									      (get-current-option)
 									      'not-selected
 									     ) ; Change the current option to not selected,
 									     
@@ -67,17 +59,17 @@
 									     ) ; Move the list foward.
 
 									     (change-animation
-									      (eval (car
-										     (hash-table-ref
-										      (slot-value menue-chooser 'local-varibles)
-										      'options
-										      )
-									      ))
+									      (get-current-option)
 									      'selected
 									      ) ; Change the new option to selected.
 
 									   )
 									   )
 				  ) ; We want the red option to be moveable up cyclicly
+  (bind-keydown-symbol->function! menu-chooser choose-key (lambda (menu-chooser)
+							    (begin
+							      ((hash-table-ref (slot-value (get-current-option) 'local-varibles) 'action-when-chosen))
+							      )
+							    ))
   menu-chooser
 )
