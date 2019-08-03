@@ -47,3 +47,15 @@
     (find-before-element lst)
     )
   )
+
+(define (map-circular func lst)
+  (let [(first (car lst))]
+    (define (call-on-all lst)
+      (if (eq? (cadr lst) first)
+	  `(,(func (car lst)))
+	  (cons (func (car lst)) (call-on-all (cdr lst)))
+	  )
+    )
+    (make-circular! (call-on-all lst))
+  )
+)

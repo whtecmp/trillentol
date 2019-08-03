@@ -13,7 +13,7 @@
 							(not-selected-texture (gensym))
 							]
 						    `(begin
-						    (define (create-option! vars) (set! vars (cadr vars)) (print vars)
+						    (define (create-option! vars) (set! vars (cadr vars))
 								   (let [
 										 (text (car vars))
 										 (x (cadr vars))
