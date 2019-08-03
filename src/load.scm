@@ -1,4 +1,6 @@
-(load "/home/vag/Documents/Games/FantasyGame/src/actors/actor-factories.scm")
+(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/utils.scm")
+(load "/home/vag/Documents/Games/FantasyGame/src/actors/menu-creator.scm")
+(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/xtexture.scm")
 (load "/home/vag/Documents/Games/FantasyGame/src/actors/background.scm")
 (load "/home/vag/Documents/Games/FantasyGame/src/actors/exit-game.scm")
 (load "/home/vag/Documents/Games/FantasyGame/src/actors/heading.scm")
@@ -10,9 +12,6 @@
 (load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/actor.scm")
 (load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/animation.scm")
 (load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/inscription.scm")
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/utils.scm")
-(load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/xtexture.scm")
 (load "/home/vag/Documents/Games/FantasyGame/src/opening-gui.scm")
-(load "/home/vag/Documents/Games/FantasyGame/src/menu-creator.scm")
 
 (load "/home/vag/Documents/Games/FantasyGame/src/main.scm")

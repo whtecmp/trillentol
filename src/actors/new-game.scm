@@ -11,7 +11,7 @@
 
   (define (action-when-chosen)
     (destroy-actor! menu-chooser)
-    (create-menu! class-menu 'right 'left 'a `("Knight" x y on-choice) `("Mage" x y on-choice))
+    ; (create-menu! class-menu 'right 'left 'a `("Knight" x y on-choice) `("Mage" x y on-choice))
     ; (create-actor! (create-knight-choice-option!))
     ; (create-actor! (create-mage-choice-option!))
     ; (create-actor! (create-menu-chooser! 'right 'left 'a `(,knight-choice-option ,mage-choice-option)))
