@@ -1,0 +1,6 @@
+Need to use the macro create-menu!
+To do so we need to change the opening gui creator to use create actor.
+Also need to add to the menu chooser, that upon creation, it will also create its options.
+For every option an upon choice action should be written.
+...
+Then there will be bugs in the macro as it is yet to be tested. But the architecture is sound.

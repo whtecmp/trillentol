@@ -13,5 +13,6 @@
 (load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/utils.scm")
 (load "/home/vag/Documents/Games/FantasyGame/src/graphics-management/xtexture.scm")
 (load "/home/vag/Documents/Games/FantasyGame/src/opening-gui.scm")
+(load "/home/vag/Documents/Games/FantasyGame/src/menu-creator.scm")
 
 (load "/home/vag/Documents/Games/FantasyGame/src/main.scm")
